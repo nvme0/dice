@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/Button";
 
@@ -93,7 +93,7 @@ export default function Dice({
   }, [timer, setTimer, rollCountDown, setRollCountDown, roll]);
 
   return (
-    <Fragment>
+    <div className="flex flex-col justify-center items-center m-8 h-1/2 sm:h-auto sm:w-1/2">
       <h2 className="mb-4 text-2xl font-semibold">{name}</h2>
       <div className="flex justify-between items-center m-2 space-x-4">
         {values.map((value, index) => (
@@ -109,6 +109,6 @@ export default function Dice({
           Roll {numDie > 1 ? "Dice" : "Die"}
         </Button>
       </div>
-    </Fragment>
+    </div>
   );
 }

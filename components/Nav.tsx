@@ -5,27 +5,32 @@ export type DiceOption = {
   Component: (props: { name: string }) => JSX.Element;
 };
 
-export interface NavProps {
+export type DiceSet = {
+  name: string;
   diceOptions: DiceOption[];
-  selectedDice: DiceOption;
-  setSelectedDice: (dice: DiceOption) => void;
+};
+
+export interface NavProps {
+  diceSets: DiceSet[];
+  selectedDiceSet: DiceSet;
+  setSelectedDiceSet: (diceSet: DiceSet) => void;
 }
 
 export default function Nav({
-  diceOptions,
-  selectedDice,
-  setSelectedDice
+  diceSets,
+  selectedDiceSet,
+  setSelectedDiceSet
 }: NavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(!isOpen);
 
-  const selectDice = (dice: DiceOption) => {
-    setSelectedDice(dice);
+  const selectDiceSet = (diceSet: DiceSet) => {
+    setSelectedDiceSet(diceSet);
     setIsOpen(false);
   };
 
   return (
-    <nav className="w-full bg-gray-800">
+    <nav className="absolute w-full bg-gray-800">
       <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex relative justify-between items-center h-16">
           <div className="flex absolute inset-y-0 left-0 items-center">
@@ -77,25 +82,25 @@ export default function Nav({
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
-          {diceOptions.map((diceOption) => {
-            if (diceOption.name === selectedDice.name) {
+          {diceSets.map((diceSet) => {
+            if (diceSet.name === selectedDiceSet.name) {
               return (
                 <button
-                  key={diceOption.name}
+                  key={diceSet.name}
                   className="block px-3 py-2 text-base font-medium text-white bg-gray-900 rounded-md"
                   aria-current="page"
                 >
-                  {diceOption.name}
+                  {diceSet.name}
                 </button>
               );
             } else {
               return (
                 <button
-                  key={diceOption.name}
-                  onClick={() => selectDice(diceOption)}
+                  key={diceSet.name}
+                  onClick={() => selectDiceSet(diceSet)}
                   className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
                 >
-                  {diceOption.name}
+                  {diceSet.name}
                 </button>
               );
             }
