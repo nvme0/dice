@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@/components/Button";
-import { Shake, ShakeEvent } from "@/utils/shake";
+// import Shake from "@/components/Shake";
 
 const DICE_SOUNDS_SRC = "/assets/dice-sounds-4s.mp3";
-const DICE_DURATION_S = 4.2;
+const DICE_DURATION_S = 1;
 const RANDOMISER_INTERVAL_MS = 100;
 const DICE_COUNT_DOWN_START = (DICE_DURATION_S * 1000) / RANDOMISER_INTERVAL_MS;
 
@@ -50,8 +50,6 @@ export default function Dice({
   numDie,
   images = []
 }: DiceProps) {
-  const shake = new Shake({ threshold: 15, timeout: DICE_COUNT_DOWN_START });
-
   const [timer, setTimer] = useState<NodeJS.Timer | null>(null);
   const [rollCountDown, setRollCountDown] = useState(0);
   const [values, setValues] = useState<number[]>(
@@ -69,7 +67,7 @@ export default function Dice({
   const rollDice = () => {
     if (!canRoll) return;
     setRollCountDown(DICE_COUNT_DOWN_START);
-    diceSounds?.play();
+    // diceSounds?.play();
   };
 
   useEffect(() => {
@@ -96,19 +94,6 @@ export default function Dice({
       }
     };
   }, [timer, setTimer, rollCountDown, setRollCountDown, roll]);
-
-  const handleShakeEvent = (event: ShakeEvent) => {
-    console.log("Shake!", event.detail.timeStamp, event.detail.acceleration);
-    rollDice();
-  };
-
-  useEffect(() => {
-    shake.addEventListener("shake", handleShakeEvent);
-
-    return () => {
-      shake.addEventListener("shake", handleShakeEvent);
-    };
-  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center h-1/2 sm:h-auto sm:w-1/2">

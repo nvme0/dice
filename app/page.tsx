@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Dice from "@/components/Dice";
 import Nav, { DiceSet } from "@/components/Nav";
-import ErrorBoundary from "@/components/ErrorBoundary";
 
 const diceSets: DiceSet[] = [
   {
@@ -96,54 +95,52 @@ const Home = () => {
   const numberOfDiceOptions = selectedDiceSet.diceOptions.length;
 
   return (
-    <ErrorBoundary>
-      <div className="relative h-screen">
-        <Nav
-          diceSets={diceSets}
-          selectedDiceSet={selectedDiceSet}
-          setSelectedDiceSet={selectDiceSet}
-        />
+    <div className="relative h-screen">
+      <Nav
+        diceSets={diceSets}
+        selectedDiceSet={selectedDiceSet}
+        setSelectedDiceSet={selectDiceSet}
+      />
 
-        <main
-          className={`flex flex-col ${
-            numberOfDiceOptions < 2 ? "justify-center" : "justify-between"
-          } pt-16 h-full sm:flex-row`}
+      <main
+        className={`flex flex-col ${
+          numberOfDiceOptions < 2 ? "justify-center" : "justify-between"
+        } pt-16 h-full sm:flex-row`}
+      >
+        <DiceComponent name={diceName} />
+        <div
+          className={`z-50 w-full sm:w-1/2 bg-gray-800  ${
+            numberOfDiceOptions < 2 ? "hidden" : ""
+          } overflow-auto `}
         >
-          <DiceComponent name={diceName} />
-          <div
-            className={`z-50 w-full sm:w-1/2 bg-gray-800  ${
-              numberOfDiceOptions < 2 ? "hidden" : ""
-            } overflow-auto `}
-          >
-            <div className="flex flex-col px-2 pt-2 pb-3 space-y-1">
-              {selectedDiceSet.diceOptions.map((dice) => {
-                if (dice.name === selectedDice.name) {
-                  return (
-                    <button
-                      key={dice.name}
-                      className="block px-3 py-2 text-base font-medium text-white whitespace-nowrap bg-gray-900 rounded-md"
-                      aria-current="page"
-                    >
-                      {dice.name}
-                    </button>
-                  );
-                } else {
-                  return (
-                    <button
-                      key={dice.name}
-                      onClick={() => setSelectedDice(dice)}
-                      className="block px-3 py-2 text-base font-medium text-gray-300 whitespace-nowrap rounded-md hover:bg-gray-700 hover:text-white"
-                    >
-                      {dice.name}
-                    </button>
-                  );
-                }
-              })}
-            </div>
+          <div className="flex flex-col px-2 pt-2 pb-3 space-y-1">
+            {selectedDiceSet.diceOptions.map((dice) => {
+              if (dice.name === selectedDice.name) {
+                return (
+                  <button
+                    key={dice.name}
+                    className="block px-3 py-2 text-base font-medium text-white whitespace-nowrap bg-gray-900 rounded-md"
+                    aria-current="page"
+                  >
+                    {dice.name}
+                  </button>
+                );
+              } else {
+                return (
+                  <button
+                    key={dice.name}
+                    onClick={() => setSelectedDice(dice)}
+                    className="block px-3 py-2 text-base font-medium text-gray-300 whitespace-nowrap rounded-md hover:bg-gray-700 hover:text-white"
+                  >
+                    {dice.name}
+                  </button>
+                );
+              }
+            })}
           </div>
-        </main>
-      </div>
-    </ErrorBoundary>
+        </div>
+      </main>
+    </div>
   );
 };
 
