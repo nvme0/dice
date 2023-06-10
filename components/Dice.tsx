@@ -3,7 +3,7 @@ import Image from "next/image";
 import Button from "@/components/Button";
 // import Shake from "@/components/Shake";
 
-const DICE_SOUNDS_SRC = "/assets/dice-sounds-4s.mp3";
+const DICE_SOUNDS_SRC = "/assets/dice-sounds-1s.mp3";
 const DICE_DURATION_S = 1;
 const RANDOMISER_INTERVAL_MS = 100;
 const DICE_COUNT_DOWN_START = (DICE_DURATION_S * 1000) / RANDOMISER_INTERVAL_MS;
@@ -67,7 +67,7 @@ export default function Dice({
   const rollDice = () => {
     if (!canRoll) return;
     setRollCountDown(DICE_COUNT_DOWN_START);
-    // diceSounds?.play();
+    diceSounds?.play();
   };
 
   useEffect(() => {
