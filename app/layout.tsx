@@ -16,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <script src="https://unpkg.com/event-target@latest/min.js"></script>
+        <script
+          async
+          src="https://unpkg.com/event-target@latest/min.js"
+        ></script>
       </head>
       <body className={inter.className}>{children}</body>
     </html>
